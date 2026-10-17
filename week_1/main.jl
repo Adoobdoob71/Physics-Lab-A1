@@ -1,8 +1,8 @@
 using CSV, DataFrames, Plots
 
-data = CSV.read("assets/data/phys_lab_week1.csv", DataFrame)
+data = CSV.read("week_1/assets/data/phys_lab_week1.csv", DataFrame)
 
-pendulum_length_arr = data.L .- 10.5
+pendulum_length_arr = data.L .- 10.5 # The minus 10.5 is 10.5cm of the bottle (length of bottle is ~21cm, center of mass is somewhere around the center of the bottle so 10.5cm)
 period_1_arr = data.t1
 period_2_arr = data.t2
 period_3_arr = data.t3
@@ -24,7 +24,7 @@ flattened_periods_arr = vcat(
 	period_3_arr,
 	period_4_arr,
 	period_5_arr,
-	period_6_arr,
+	period_6_arr
 )
 x_axis = range(20, maximum(pendulum_length_arr))
 y_axis = range(20, maximum(flattened_periods_arr))
@@ -37,8 +37,8 @@ plot!(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="",xscale=:
 xlabel!("Pendulum length (in centimeters)")
 ylabel!("Period times (in seconds)")
 
-# savefig(graph, "pendulum_periods.png")
-# savefig(graph, "pendulum_periods.pdf")
+# savefig(graph, "week_1/results/pendulum_periods.png")
+# savefig(graph, "week_1/results/pendulum_periods.pdf")
 
-savefig(graph, "pendulum_periods_logarithmic.png")
-savefig(graph, "pendulum_periods_logarithmic.pdf")
+savefig(graph, "week_1/results/pendulum_periods_logarithmic.png")
+savefig(graph, "week_1/results/pendulum_periods_logarithmic.pdf")
