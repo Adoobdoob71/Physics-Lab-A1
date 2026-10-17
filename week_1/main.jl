@@ -37,11 +37,6 @@ plot!(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="",xscale=:
 xlabel!("Pendulum length (in centimeters)")
 ylabel!("Period times (in seconds)")
 
-#  scatter(pendulum_length_arr, [periods_arr]; label="",
-# xlabel="Pendulum length (in cm)", ylabel="Period (in seconds)",
-# title="Pendulum period times in accordance to pendulum length", framestyle=:box, size
-# =(800, 600))
-
 # savefig(graph, "pendulum_periods.png")
 # savefig(graph, "pendulum_periods.pdf")
 
