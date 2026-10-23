@@ -18,7 +18,7 @@ periods_arr = [
 	period_5_arr,
 	period_6_arr
 ]
-flattened_periods_arr = vcat(
+flattened_periods_arr = vcat( # the reason i did this is because i wanted to get the maximum value of the periods for the y axis of the graphs. the vcat func flattens the matrix and returns a simple vector on which you can get the max out of
 	period_1_arr,
 	period_2_arr,
 	period_3_arr,
@@ -28,17 +28,18 @@ flattened_periods_arr = vcat(
 )
 x_axis = range(20, maximum(pendulum_length_arr))
 y_axis = range(20, maximum(flattened_periods_arr))
-graph = plot(x_axis, 2π*sqrt.(x_axis/(9.8 * 100)), label="",xscale=:log10, yscale=:log10) # LOGARITHMIC AXIS
-plot!(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="",xscale=:log10, yscale=:log10) # LOGARITHMIC AXIS
+gravity_log_graph = 2π*sqrt.(x_axis/(9.8 * 100)) # LOGARITHMIC AXIS
+dots_log_graph = plot(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="",xscale=:log10, yscale=:log10) # LOGARITHMIC AXIS
+plot!(dots_log_graph, x_axis, gravity_log_graph, label="2π√(x/g)", xscale=:log10, yscale=:log10)
 
-# graph = plot(x_axis, 2π*sqrt.(x_axis/(9.8 * 100)), label="") # REGULAR AXIS
-# plot!(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="") # REGULAR AXIS
+gravity_graph = 2π*sqrt.(x_axis/(9.8 * 100)) # REGULAR AXIS
+dots_graph = plot(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="") # REGULAR AXIS
+plot!(dots_graph, x_axis, gravity_graph, label="2π√(x/g)")
 
-xlabel!("Pendulum length (in centimeters)")
-ylabel!("Period times (in seconds)")
+combined_graph = plot(dots_graph, dots_log_graph, layout = (1, 2), size=(900,400), margin=5Plots.mm)
 
-# savefig(graph, "week_1/results/pendulum_periods.png")
-# savefig(graph, "week_1/results/pendulum_periods.pdf")
+xlabel!("Pendulum length (cm)")
+ylabel!("Period times (s)")
 
-savefig(graph, "week_1/results/pendulum_periods_logarithmic.png")
-savefig(graph, "week_1/results/pendulum_periods_logarithmic.pdf")
+savefig(combined_graph, "week_1/results/pendulum_periods.png")
+savefig(combined_graph, "week_1/results/pendulum_periods.pdf")
