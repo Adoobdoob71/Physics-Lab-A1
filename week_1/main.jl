@@ -18,24 +18,16 @@ periods_arr = [
 	period_5_arr,
 	period_6_arr
 ]
-flattened_periods_arr = vcat( # the reason i did this is because i wanted to get the maximum value of the periods for the y axis of the graphs. the vcat func flattens the matrix and returns a simple vector on which you can get the max out of
-	period_1_arr,
-	period_2_arr,
-	period_3_arr,
-	period_4_arr,
-	period_5_arr,
-	period_6_arr
-)
+
 x_axis = range(20, maximum(pendulum_length_arr))
-y_axis = range(20, maximum(flattened_periods_arr))
 gravity_log_graph = 2π*sqrt.(x_axis/(9.8 * 100)) # LOGARITHMIC AXIS
-dots_log_graph = plot(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="",xscale=:log10, yscale=:log10,
+dots_log_graph = plot(pendulum_length_arr, periods_arr, seriestype=:"scatter", label=["Measurements" "" "" "" "" ""], color=:blue, xscale=:log10, yscale=:log10,
 	xticks=([50, 100, 150, 200], ["50", "100", "150", "200"]),
 	yticks=([1, 1.5, 2, 2.5, 3], ["1", "1.5", "2", "2.5", "3"])) # LOGARITHMIC AXIS
 plot!(dots_log_graph, x_axis, gravity_log_graph, label="2π√(x/g)", xscale=:log10, yscale=:log10)
 
 gravity_graph = 2π*sqrt.(x_axis/(9.8 * 100)) # REGULAR AXIS
-dots_graph = plot(pendulum_length_arr, periods_arr, seriestype=:"scatter", label="") # REGULAR AXIS
+dots_graph = plot(pendulum_length_arr, periods_arr, seriestype=:"scatter", label=["Measurements" "" "" "" "" ""], color=:blue) # REGULAR AXIS
 plot!(dots_graph, x_axis, gravity_graph, label="2π√(x/g)")
 
 combined_graph = plot(dots_graph, dots_log_graph, layout=(1, 2), size=(1200, 500), margin=6Plots.mm)
